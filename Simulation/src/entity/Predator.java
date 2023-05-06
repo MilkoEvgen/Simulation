@@ -1,7 +1,5 @@
 package entity;
 
-
-
 import game.GameMap;
 import java.awt.*;
 import java.util.Optional;
@@ -26,8 +24,13 @@ public class Predator extends Creature {
     public void makeMove(Set<Point> herbivores, GameMap map) {
         Optional<Point> target = getTargetToAttack(herbivores);
         if (target.isPresent()) {
-            Point pointToAttack = target.get();
-            attack((Herbivore) map.getEntity(pointToAttack));
+            Point targetPoint = target.get();
+            Herbivore targetHerbivore = (Herbivore) map.getEntity(targetPoint);
+            attack(targetHerbivore);
+            if (!targetHerbivore.isAlive()){
+                map.removeEntity(targetPoint);
+                map.moveEntity(targetPoint, this);
+            }
         } else {
             //Ищем путь и ходим
         }
@@ -48,7 +51,9 @@ public class Predator extends Creature {
     }
 
     public void attack (Herbivore herbivore){
-        System.out.println("Predator attacking!");
+        hp = hp + attackPower;
+        herbivore.takeDamage(attackPower);
+        System.out.println("Predator attacking, hp = " + hp);
     }
 
 

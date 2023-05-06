@@ -8,6 +8,7 @@ public class Main {
         simulation.mapConsoleRenderer.render(simulation.map);
 
         simulation.nextTurn();
+        simulation.mapConsoleRenderer.render(simulation.map);
 
     }
 }

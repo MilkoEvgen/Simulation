@@ -8,6 +8,7 @@ public abstract class Creature extends Entity {
     int speed;
     int hp;
 
+
     public Creature(Point point) {
         super(point);
     }

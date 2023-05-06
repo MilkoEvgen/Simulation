@@ -24,8 +24,10 @@ public class Herbivore extends Creature {
     public void makeMove(Set<Point> grass, GameMap map) {
         Optional<Point> target = getTargetToAttack(grass);
         if (target.isPresent()) {
-            Point pointToAttack = target.get();
-            attack((Grass) map.getEntity(pointToAttack));
+            Point targetPoint = target.get();
+            hp = hp + 4;
+            map.removeEntity(targetPoint);
+            map.moveEntity(targetPoint, this);
         } else {
             //Ищем путь и ходим
         }
@@ -44,7 +46,13 @@ public class Herbivore extends Creature {
         return Optional.empty();
     }
 
-    public void attack (Grass grass){
-        System.out.println("Herbivore eating grass!");
+    public void takeDamage(int damage) {
+        hp = hp - damage;
+        if (hp <= 0) {
+            alive = false;
+
+        } else {
+
+        }
     }
 }
