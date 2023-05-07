@@ -1,10 +1,12 @@
 package entity;
 
+import game.GameMap;
+
 import java.awt.*;
 
 public class Grass extends Entity {
-    public Grass(Point point) {
-        super(point);
+    public Grass(Point point, GameMap map) {
+        super(point, map);
     }
 
     @Override

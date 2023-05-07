@@ -1,41 +1,33 @@
 package game;
 
+import entity.Grass;
 import entity.Herbivore;
 import entity.Predator;
-
-import java.awt.*;
 import java.util.List;
-import java.util.Set;
+
 
 public class Simulation {
     public GameMap map = new GameMap();
-    int stepCount;
     public MapConsoleRenderer mapConsoleRenderer = new MapConsoleRenderer();
 
 
-    public void nextTurn() throws InterruptedException {
-        Set<Point> herbivores = map.getHerbivorePoints();
-        List<Predator> predatorList = map.returnPredators();
+    public void nextTurn() {
+        List<Predator> predatorList = map.getPredatorsList();
         for (Predator predator : predatorList) {
-            predator.makeMove(herbivores, map);
-            Thread.sleep(1000);
-            mapConsoleRenderer.render(map);
+            predator.makeMove(this, Herbivore.class);
         }
 
-        Set<Point> grass = map.getGrassPoints();
-        List<Herbivore> herbivoreList = map.returnHerbivores();
+        List<Herbivore> herbivoreList = map.getHerbivoresList();
         for (Herbivore herbivore : herbivoreList) {
-            herbivore.makeMove(grass, map);
-            Thread.sleep(1000);
-            mapConsoleRenderer.render(map);
+            herbivore.makeMove(this, Grass.class);
         }
     }
 
-    public void startSimulation(){
+    public void startSimulation() {
 
     }
 
-    public void pauseSimulation(){
-
+    public void pauseSimulation() {
+        mapConsoleRenderer.isPaused = true;
     }
 }

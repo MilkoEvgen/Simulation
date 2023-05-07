@@ -5,11 +5,8 @@ public class Main {
 
         Simulation simulation = new Simulation();
         simulation.map.setDefault();
-
-        try {
+        while (true) {
             simulation.nextTurn();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
 
 

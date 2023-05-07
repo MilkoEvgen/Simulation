@@ -1,7 +1,7 @@
 package entity;
 
 import game.GameMap;
-
+import game.Simulation;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -12,16 +12,40 @@ public abstract class Creature extends Entity {
     int hp;
 
 
-    public Creature(Point point) {
-        super(point);
+    public Creature(Point point, GameMap map) {
+        super(point, map);
     }
 
-    public abstract void makeMove(Set<Point> points, GameMap map);
+    public int getSpeed(){
+        return speed;
+    }
+
+    public void makeMove(Simulation simulation, Class<? extends Entity> creatureClass) {
+        Set<Point> points = map.getCreaturePoints(creatureClass);
+        List<Point> closestPath = getClosestPath(points, map);
+        if (closestPath.size() == 1) {
+            attack(closestPath.get(0));
+        } else {
+            for (int i = 0; i < getSpeed(); i++) {
+                if (i == closestPath.size() - 1) {
+                    attack(closestPath.get(i));
+                    simulation.mapConsoleRenderer.render(map);
+                    break;
+                } else {
+                    map.moveEntity(closestPath.get(i), this);
+                }
+                simulation.mapConsoleRenderer.render(map);
+            }
+        }
+    }
+
+    protected abstract void attack(Point targetPoint);
 
     public ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
         Queue<Point> pointQueue = new LinkedList<>();
         HashMap<Point, Point> previous = new HashMap<>();
         HashSet<Point> visited = new HashSet<>();
+        ArrayList<Point> path = new ArrayList<>();
 
         pointQueue.add(point);
         visited.add(point);
@@ -29,9 +53,6 @@ public abstract class Creature extends Entity {
         while (!pointQueue.isEmpty()) {
             Point current = pointQueue.poll();
             if (points.contains(current)) {
-                ArrayList<Point> path = new ArrayList<>();
-                current = previous.get(current);
-
                 while (current != this.point) {
                     path.add(current);
                     current = previous.get(current);
@@ -48,11 +69,11 @@ public abstract class Creature extends Entity {
                 }
             }
         }
-        return null;
+        return path;
     }
 
     private List<Point> getNeighbors(Point point, GameMap map, Set<Point> points) {
-        Set<Point> obstacles = map.getEntities().keySet().stream().
+        Set<Point> obstacles = map.getEntitiesMap().keySet().stream().
                 filter(entity -> !(points.contains(entity))).collect(Collectors.toSet());
 
         List<Point> neighbors = new ArrayList<>();
@@ -67,4 +88,5 @@ public abstract class Creature extends Entity {
         }
         return neighbors;
     }
+
 }

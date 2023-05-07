@@ -1,20 +1,20 @@
 package entity;
 
 
+import game.GameMap;
+
 import java.awt.*;
 
 public abstract class Entity {
-public Point point;
-    boolean alive;
 
-    public Entity(Point point) {
+    GameMap map;
+    public Point point;
+
+    public Entity(Point point, GameMap map) {
         this.point = point;
-        alive = true;
+        this.map = map;
     }
 
     public abstract void printEntity();
 
-    public boolean isAlive(){
-        return alive;
-    }
 }
