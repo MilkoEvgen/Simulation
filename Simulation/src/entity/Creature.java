@@ -1,8 +1,11 @@
 package entity;
 
 import game.GameMap;
+
 import java.awt.*;
-import java.util.Set;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Creature extends Entity {
     int speed;
@@ -14,4 +17,54 @@ public abstract class Creature extends Entity {
     }
 
     public abstract void makeMove(Set<Point> points, GameMap map);
+
+    public ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
+        Queue<Point> pointQueue = new LinkedList<>();
+        HashMap<Point, Point> previous = new HashMap<>();
+        HashSet<Point> visited = new HashSet<>();
+
+        pointQueue.add(point);
+        visited.add(point);
+
+        while (!pointQueue.isEmpty()) {
+            Point current = pointQueue.poll();
+            if (points.contains(current)) {
+                ArrayList<Point> path = new ArrayList<>();
+                current = previous.get(current);
+
+                while (current != this.point) {
+                    path.add(current);
+                    current = previous.get(current);
+                }
+                Collections.reverse(path);
+                return path;
+            }
+
+            for (Point neighbor : getNeighbors(current, map, points)) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    pointQueue.add(neighbor);
+                    previous.put(neighbor, current);
+                }
+            }
+        }
+        return null;
+    }
+
+    private List<Point> getNeighbors(Point point, GameMap map, Set<Point> points) {
+        Set<Point> obstacles = map.getEntities().keySet().stream().
+                filter(entity -> !(points.contains(entity))).collect(Collectors.toSet());
+
+        List<Point> neighbors = new ArrayList<>();
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (int[] dir : dirs) {
+            Point neighbour = new Point(point.x + dir[0], point.y + dir[1]);
+            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x <= 20 &&
+                    neighbour.y >= 0 && neighbour.y <= 15) {
+                neighbors.add(neighbour);
+            }
+        }
+        return neighbors;
+    }
 }

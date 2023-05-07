@@ -20,6 +20,10 @@ public class GameMap {
         return entities.get(point);
     }
 
+    public HashMap<Point, Entity> getEntities(){
+        return entities;
+    }
+
     public void moveEntity(Point point, Entity entity){
         entities.remove(entity.point);
         setEntity(point, entity);
@@ -75,6 +79,7 @@ public class GameMap {
 
     public void setDefault() {
         entities.put(new Point(1, 2), new Predator(new Point(1, 2)));
+        entities.put(new Point(2, 10), new Predator(new Point(2, 10)));
         entities.put(new Point(1, 3), new Herbivore(new Point(1, 3)));
         entities.put(new Point(2, 4), new Rock(new Point(2, 4)));
         entities.put(new Point(15, 3), new Rock(new Point(15, 3)));

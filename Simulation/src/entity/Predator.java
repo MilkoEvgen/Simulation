@@ -2,6 +2,7 @@ package entity;
 
 import game.GameMap;
 import java.awt.*;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class Predator extends Creature {
                 map.moveEntity(targetPoint, this);
             }
         } else {
-            //Ищем путь и ходим
+            List<Point> closestPath = getClosestPath(herbivores, map);
         }
 
     }
@@ -53,7 +54,6 @@ public class Predator extends Creature {
     public void attack (Herbivore herbivore){
         hp = hp + attackPower;
         herbivore.takeDamage(attackPower);
-        System.out.println("Predator attacking, hp = " + hp);
     }
 
 

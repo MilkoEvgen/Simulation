@@ -5,10 +5,13 @@ public class Main {
 
         Simulation simulation = new Simulation();
         simulation.map.setDefault();
-        simulation.mapConsoleRenderer.render(simulation.map);
 
-        simulation.nextTurn();
-        simulation.mapConsoleRenderer.render(simulation.map);
+        try {
+            simulation.nextTurn();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }

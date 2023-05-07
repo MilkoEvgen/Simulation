@@ -4,6 +4,7 @@ import entity.Creature;
 import game.GameMap;
 
 import java.awt.*;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class Herbivore extends Creature {
             map.removeEntity(targetPoint);
             map.moveEntity(targetPoint, this);
         } else {
-            //Ищем путь и ходим
+            List<Point> closestPath = getClosestPath(grass, map);
         }
     }
 

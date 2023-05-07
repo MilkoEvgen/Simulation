@@ -13,17 +13,21 @@ public class Simulation {
     public MapConsoleRenderer mapConsoleRenderer = new MapConsoleRenderer();
 
 
-    public void nextTurn(){
+    public void nextTurn() throws InterruptedException {
         Set<Point> herbivores = map.getHerbivorePoints();
         List<Predator> predatorList = map.returnPredators();
         for (Predator predator : predatorList) {
             predator.makeMove(herbivores, map);
+            Thread.sleep(1000);
+            mapConsoleRenderer.render(map);
         }
 
         Set<Point> grass = map.getGrassPoints();
         List<Herbivore> herbivoreList = map.returnHerbivores();
         for (Herbivore herbivore : herbivoreList) {
             herbivore.makeMove(grass, map);
+            Thread.sleep(1000);
+            mapConsoleRenderer.render(map);
         }
     }
 
