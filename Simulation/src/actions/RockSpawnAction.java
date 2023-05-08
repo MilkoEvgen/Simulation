@@ -8,7 +8,11 @@ import java.awt.*;
 public class RockSpawnAction extends SpawnAction<Rock>{
     public RockSpawnAction(GameMap map) {
         super(map);
-        rate = (map.width* map.height)/20;
+        if (map.getMapSize() > 20){
+            rate = map.getMapSize()/20;
+        } else {
+            rate = 1;
+        }
     }
 
     @Override

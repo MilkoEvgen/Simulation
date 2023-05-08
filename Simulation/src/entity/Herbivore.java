@@ -37,6 +37,7 @@ public class Herbivore extends Creature {
         hp = hp - damage;
         if (hp <= 0) {
             this.map.removeEntity(this.point);
+            isAlive = false;
         }
     }
 }

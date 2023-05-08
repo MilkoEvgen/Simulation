@@ -10,31 +10,36 @@ import java.util.stream.Collectors;
 public abstract class Creature extends Entity {
     int speed;
     int hp;
+    boolean isAlive;
 
 
     public Creature(Point point, GameMap map) {
         super(point, map);
+        isAlive = true;
     }
 
     public int getSpeed(){
         return speed;
     }
 
-    public void makeMove(Simulation simulation) {
-        Set<Point> points = this.getTargetPoints();
-        List<Point> closestPath = getClosestPath(points, map);
-        if (closestPath.size() == 1) {
-            attack(closestPath.get(0));
-        } else {
-            for (int i = 0; i < getSpeed(); i++) {
-                if (i == closestPath.size() - 1) {
-                    attack(closestPath.get(i));
-                    simulation.mapConsoleRenderer.render(map);
-                    break;
+    public void makeMove() {
+        if (isAlive){
+            Set<Point> points = this.getTargetPoints();
+            if (points.size() > 0){
+                map.isMapChanged = true;
+                List<Point> closestPath = getClosestPath(points, map);
+                if (closestPath.size() == 1) {
+                    attack(closestPath.get(0));
                 } else {
-                    map.moveEntity(closestPath.get(i), this);
+                    for (int i = 0; i < getSpeed(); i++) {
+                        if (i < closestPath.size() - 1) {
+                            map.moveEntity(closestPath.get(i), this);
+                        } else {
+                            attack(closestPath.get(i));
+                            break;
+                        }
+                    }
                 }
-                simulation.mapConsoleRenderer.render(map);
             }
         }
     }

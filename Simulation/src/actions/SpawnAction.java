@@ -23,7 +23,7 @@ public abstract class SpawnAction<T extends Entity> extends Action {
         }
     }
 
-    private Point getEmptyRandomPoint() {
+    protected Point getEmptyRandomPoint() {
         Random r = new Random();
         while (true) {
             int x = r.nextInt(map.width);

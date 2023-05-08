@@ -11,13 +11,17 @@ import java.util.Set;
 public class GameMap {
     public int width;
     public int height;
+    public boolean isMapChanged = true;
+    private final HashMap<Point, Entity> entities = new HashMap<>();
 
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-    private final HashMap<Point, Entity> entities = new HashMap<>();
+    public int getMapSize(){
+        return width* height;
+    }
 
     public HashMap<Point, Entity> getEntitiesMap(){
         return entities;
@@ -35,6 +39,7 @@ public class GameMap {
     public void moveEntity(Point newPoint, Entity entity){
         entities.remove(entity.point);
         setEntity(newPoint, entity);
+        MapConsoleRenderer.render(this);
     }
 
     public void removeEntity (Point point){
@@ -44,7 +49,7 @@ public class GameMap {
     public boolean checkEntity(Point point){
         return entities.containsKey(point);
     }
-    
+
     public ArrayList<Creature> getCreaturesList() {
         ArrayList<Creature> creatures = new ArrayList<>();
         for (Point point : entities.keySet()) {

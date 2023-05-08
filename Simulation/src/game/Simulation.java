@@ -1,55 +1,45 @@
 package game;
 
 import actions.*;
-import entity.Creature;
-import entity.Grass;
-import entity.Herbivore;
-import entity.Predator;
+import entity.*;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class Simulation {
     public GameMap map;
-    public MapConsoleRenderer mapConsoleRenderer = new MapConsoleRenderer();
+    private final List<Action> spawnActions = new ArrayList<>();
+    private final List<Action> turnActions = new ArrayList<>();
 
     public Simulation(int width, int height) {
         this.map = new GameMap(width, height);
     }
 
-    public void nextTurn() {
-        List<Creature> creatures = map.getCreaturesList();
-        for (Creature creature : creatures) {
-            creature.makeMove(this);
+    public void startSimulation() {
+        initActions();
+        for (Action spawnAction : spawnActions) {
+            spawnAction.perform();
         }
-
-
-//        List<Predator> predatorList = map.getPredatorsList();
-//        for (Predator predator : predatorList) {
-//            predator.makeMove(this);
-//        }
-//
-//        List<Herbivore> herbivoreList = map.getHerbivoresList();
-//        for (Herbivore herbivore : herbivoreList) {
-//            herbivore.makeMove(this);
-//        }
+        while (map.isMapChanged) {
+            map.isMapChanged = false;
+            for (Action action : turnActions) {
+                action.perform();
+            }
+        }
+        System.out.println("Симуляция завершена!");
     }
 
-    public void startSimulation() {
-        List<Action> spawnActions = new ArrayList<>();
+    private void initActions(){
         spawnActions.add(new GrassSpawnAction(map));
         spawnActions.add(new RockSpawnAction(map));
         spawnActions.add(new TreeSpawnAction(map));
         spawnActions.add(new PredatorSpawnAction(map));
         spawnActions.add(new HerbivoreSpawnAction(map));
-        for (Action spawnAction : spawnActions) {
-            spawnAction.perform();
-        }
-
+        turnActions.add(new MoveCreaturesAction(map));
+        turnActions.add(new GrassSpawnAction(map));
     }
 
-    public void pauseSimulation() {
-        mapConsoleRenderer.isPaused = true;
-    }
 }
