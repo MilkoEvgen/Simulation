@@ -13,8 +13,8 @@ boolean isPaused = false;
                 throw new RuntimeException(e);
             }
             System.out.println("\n\n\n");
-            for (int i = 0; i < 15; i++) {
-                for (int j = 0; j < 20; j++) {
+            for (int i = 0; i < map.height; i++) {
+                for (int j = 0; j < map.width; j++) {
                     if (map.checkEntity(new Point(j, i))){
                         map.getEntity(new Point(j, i)).printEntity();
                     } else {

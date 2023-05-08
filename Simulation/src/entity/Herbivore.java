@@ -22,6 +22,11 @@ public class Herbivore extends Creature {
         System.out.print("\uD83D\uDC07");
     }
 
+    @Override
+    public Set<Point> getTargetPoints(){
+        return map.getCreaturePoints(Grass.class);
+    }
+
     protected void attack(Point targetPoint) {
         hp = hp + 4;
         map.removeEntity(targetPoint);

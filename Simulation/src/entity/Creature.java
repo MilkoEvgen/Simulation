@@ -20,8 +20,8 @@ public abstract class Creature extends Entity {
         return speed;
     }
 
-    public void makeMove(Simulation simulation, Class<? extends Entity> creatureClass) {
-        Set<Point> points = map.getCreaturePoints(creatureClass);
+    public void makeMove(Simulation simulation) {
+        Set<Point> points = this.getTargetPoints();
         List<Point> closestPath = getClosestPath(points, map);
         if (closestPath.size() == 1) {
             attack(closestPath.get(0));
@@ -38,6 +38,8 @@ public abstract class Creature extends Entity {
             }
         }
     }
+
+    public abstract Set<Point> getTargetPoints();
 
     protected abstract void attack(Point targetPoint);
 
@@ -81,8 +83,8 @@ public abstract class Creature extends Entity {
 
         for (int[] dir : dirs) {
             Point neighbour = new Point(point.x + dir[0], point.y + dir[1]);
-            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x <= 20 &&
-                    neighbour.y >= 0 && neighbour.y <= 15) {
+            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x <= map.width &&
+                    neighbour.y >= 0 && neighbour.y <= map.height) {
                 neighbors.add(neighbour);
             }
         }

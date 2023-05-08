@@ -23,6 +23,11 @@ public class Predator extends Creature {
         System.out.print("\uD83E\uDD96");
     }
 
+    @Override
+    public Set<Point> getTargetPoints(){
+        return map.getCreaturePoints(Herbivore.class);
+    }
+
     protected void attack(Point targetPoint) {
         Herbivore herbivore = (Herbivore) map.getEntity(targetPoint);
         hp = hp + attackPower;
