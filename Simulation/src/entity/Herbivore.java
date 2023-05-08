@@ -15,6 +15,7 @@ public class Herbivore extends Creature {
         super(point, map);
         speed = 3;
         hp = 10;
+        attackPower = 4;
     }
 
     @Override
@@ -27,17 +28,18 @@ public class Herbivore extends Creature {
         return map.getCreaturePoints(Grass.class);
     }
 
-    protected void attack(Point targetPoint) {
-        hp = hp + 4;
-        map.removeEntity(targetPoint);
-        map.moveEntity(targetPoint, this);
+    protected void attack(Point targetPoint, int attackPower) {
+        System.out.println("Травоядное " + point.x + " " + point.y + " атакует c силой "+ attackPower);
+        Grass grass = (Grass) map.getEntity(targetPoint);
+        hp = hp + attackPower;
+        grass.takeDamage(attackPower);
+        if (grass.hp < 0) {
+            map.removeEntity(targetPoint);
+            map.moveEntity(targetPoint, this);
+        }
     }
 
     public void takeDamage(int damage) {
         hp = hp - damage;
-        if (hp <= 0) {
-            this.map.removeEntity(this.point);
-            isAlive = false;
-        }
     }
 }

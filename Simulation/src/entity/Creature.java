@@ -2,6 +2,7 @@ package entity;
 
 import game.GameMap;
 import game.Simulation;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -11,6 +12,7 @@ public abstract class Creature extends Entity {
     int speed;
     int hp;
     boolean isAlive;
+    int attackPower;
 
 
     public Creature(Point point, GameMap map) {
@@ -18,24 +20,25 @@ public abstract class Creature extends Entity {
         isAlive = true;
     }
 
-    public int getSpeed(){
+    public int getSpeed() {
         return speed;
     }
 
     public void makeMove() {
-        if (isAlive){
-            Set<Point> points = this.getTargetPoints();
-            if (points.size() > 0){
+        Set<Point> points = this.getTargetPoints();
+        if (isAlive && points.size() > 0) {
+            List<Point> closestPath = getClosestPath(points, map);
+            if (closestPath.size() > 0) {
+                System.out.println("Ходит существо " + point.x + " " + point.y);
                 map.isMapChanged = true;
-                List<Point> closestPath = getClosestPath(points, map);
                 if (closestPath.size() == 1) {
-                    attack(closestPath.get(0));
+                    attack(closestPath.get(0), attackPower);
                 } else {
                     for (int i = 0; i < getSpeed(); i++) {
                         if (i < closestPath.size() - 1) {
                             map.moveEntity(closestPath.get(i), this);
                         } else {
-                            attack(closestPath.get(i));
+                            attack(closestPath.get(i), attackPower - i);
                             break;
                         }
                     }
@@ -46,7 +49,7 @@ public abstract class Creature extends Entity {
 
     public abstract Set<Point> getTargetPoints();
 
-    protected abstract void attack(Point targetPoint);
+    protected abstract void attack(Point targetPoint, int attackPower);
 
     public ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
         Queue<Point> pointQueue = new LinkedList<>();
