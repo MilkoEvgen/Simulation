@@ -9,7 +9,7 @@ public class TreeSpawnAction extends SpawnAction<Tree> {
     public TreeSpawnAction(GameMap map) {
         super(map);
         if (map.getMapSize() > 20){
-            rate = map.getMapSize()/20;
+            rate = map.getMapSize()/10;
         } else {
             rate = 1;
         }

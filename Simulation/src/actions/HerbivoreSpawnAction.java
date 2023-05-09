@@ -7,8 +7,8 @@ import java.awt.*;
 public class HerbivoreSpawnAction extends SpawnAction<Herbivore> {
     public HerbivoreSpawnAction(GameMap map) {
         super(map);
-        if (map.getMapSize() > 45){
-            rate = map.getMapSize()/45;
+        if (map.getMapSize() > 30){
+            rate = map.getMapSize()/30;
         } else {
             rate = 1;
         }

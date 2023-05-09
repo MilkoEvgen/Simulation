@@ -72,7 +72,7 @@ public abstract class Creature extends Entity {
                 return path;
             }
 
-            for (Point neighbor : getNeighbors(current, map, points)) {
+            for (Point neighbor : getNeighbours(current, map, points)) {
                 if (!visited.contains(neighbor)) {
                     visited.add(neighbor);
                     pointQueue.add(neighbor);
@@ -83,21 +83,21 @@ public abstract class Creature extends Entity {
         return path;
     }
 
-    private List<Point> getNeighbors(Point point, GameMap map, Set<Point> points) {
+    private List<Point> getNeighbours(Point point, GameMap map, Set<Point> points) {
         Set<Point> obstacles = map.getEntitiesMap().keySet().stream().
                 filter(entity -> !(points.contains(entity))).collect(Collectors.toSet());
 
-        List<Point> neighbors = new ArrayList<>();
+        List<Point> neighbours = new ArrayList<>();
         int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
         for (int[] dir : dirs) {
             Point neighbour = new Point(point.x + dir[0], point.y + dir[1]);
-            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x <= map.getWidth() &&
-                    neighbour.y >= 0 && neighbour.y <= map.getHeight()) {
-                neighbors.add(neighbour);
+            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x < map.getWidth() &&
+                    neighbour.y >= 0 && neighbour.y < map.getHeight()) {
+                neighbours.add(neighbour);
             }
         }
-        return neighbors;
+        return neighbours;
     }
 
 }
