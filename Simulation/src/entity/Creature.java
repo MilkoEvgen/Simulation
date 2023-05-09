@@ -1,8 +1,6 @@
 package entity;
 
 import game.GameMap;
-import game.Simulation;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -50,11 +48,11 @@ public abstract class Creature extends Entity {
         }
     }
 
-    public abstract Set<Point> getTargetPoints();
+    protected abstract Set<Point> getTargetPoints();
 
     protected abstract void attack(Point targetPoint, int attackPower);
 
-    public ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
+    private ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
         Queue<Point> pointQueue = new LinkedList<>();
         HashMap<Point, Point> previous = new HashMap<>();
         HashSet<Point> visited = new HashSet<>();
@@ -94,8 +92,8 @@ public abstract class Creature extends Entity {
 
         for (int[] dir : dirs) {
             Point neighbour = new Point(point.x + dir[0], point.y + dir[1]);
-            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x <= map.width &&
-                    neighbour.y >= 0 && neighbour.y <= map.height) {
+            if (!obstacles.contains(neighbour) && neighbour.x >= 0 && neighbour.x <= map.getWidth() &&
+                    neighbour.y >= 0 && neighbour.y <= map.getHeight()) {
                 neighbors.add(neighbour);
             }
         }

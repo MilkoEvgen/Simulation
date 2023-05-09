@@ -1,11 +1,7 @@
 package entity;
 
 import game.GameMap;
-import game.Simulation;
-
 import java.awt.*;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class Predator extends Creature {
@@ -24,12 +20,11 @@ public class Predator extends Creature {
 
     @Override
     public Set<Point> getTargetPoints(){
-        return map.getCreaturePoints(Herbivore.class);
+        return map.getCreaturesByClass(Herbivore.class).keySet();
     }
 
     protected void attack(Point targetPoint, int attackPower) {
         Herbivore herbivore = (Herbivore) map.getEntity(targetPoint);
-        hp = hp + attackPower;
         herbivore.takeDamage(attackPower);
         if (herbivore.hp < 0) {
             herbivore.isAlive = false;

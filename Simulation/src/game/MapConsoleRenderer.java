@@ -11,8 +11,8 @@ public class MapConsoleRenderer {
             throw new RuntimeException(e);
         }
         System.out.println("\n\n\n");
-        for (int i = 0; i < map.height; i++) {
-            for (int j = 0; j < map.width; j++) {
+        for (int i = 0; i < map.getHeight(); i++) {
+            for (int j = 0; j < map.getWidth(); j++) {
                 if (map.checkEntity(new Point(j, i))) {
                     map.getEntity(new Point(j, i)).printEntity();
                 } else {

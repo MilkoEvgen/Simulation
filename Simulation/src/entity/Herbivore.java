@@ -25,7 +25,7 @@ public class Herbivore extends Creature {
 
     @Override
     public Set<Point> getTargetPoints(){
-        return map.getCreaturePoints(Grass.class);
+        return map.getCreaturesByClass(Grass.class).keySet();
     }
 
     protected void attack(Point targetPoint, int attackPower) {

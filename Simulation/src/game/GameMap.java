@@ -3,14 +3,11 @@ package game;
 import entity.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class GameMap {
-    public int width;
-    public int height;
+    private int width;
+    private int height;
     private boolean isMapChanged = true;
     private final HashMap<Point, Entity> entities = new HashMap<>();
 
@@ -19,16 +16,24 @@ public class GameMap {
         this.height = height;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getMapSize(){
+        return width* height;
+    }
+
     public boolean isMapChanged() {
         return isMapChanged;
     }
 
     public void setMapChanged(boolean mapChanged) {
         isMapChanged = mapChanged;
-    }
-
-    public int getMapSize(){
-        return width* height;
     }
 
     public HashMap<Point, Entity> getEntitiesMap(){
@@ -58,24 +63,14 @@ public class GameMap {
         return entities.containsKey(point);
     }
 
-    public ArrayList<Creature> getCreaturesList() {
-        ArrayList<Creature> creatures = new ArrayList<>();
-        for (Point point : entities.keySet()) {
-            if ((entities.get(point) instanceof Herbivore) || (entities.get(point) instanceof Predator)) {
-                creatures.add((Creature) entities.get(point));
+    public <T extends Entity> HashMap<Point, T> getCreaturesByClass(Class<T> objectClass) {
+        HashMap<Point, T> entityHashMap = new HashMap<>();
+        for (Map.Entry <Point, Entity> e : entities.entrySet()) {
+            if (objectClass.isInstance(e.getValue())) {
+                Map.Entry<Point, T> cellEntry = (Map.Entry<Point, T>) e;
+                entityHashMap.put(cellEntry.getKey(), cellEntry.getValue());
             }
         }
-        return creatures;
+        return entityHashMap;
     }
-
-    public <T extends Entity> Set<Point> getCreaturePoints(Class<T> objectClass) {
-        Set<Point> points = new HashSet<>();
-        for (Point point : entities.keySet()) {
-            if (objectClass.isInstance(entities.get(point))) {
-                points.add(point);
-            }
-        }
-        return points;
-    }
-
 }

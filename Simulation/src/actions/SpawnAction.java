@@ -26,8 +26,8 @@ public abstract class SpawnAction<T extends Entity> extends Action {
     protected Point getEmptyRandomPoint() {
         Random r = new Random();
         while (true) {
-            int x = r.nextInt(map.width);
-            int y = r.nextInt(map.height);
+            int x = r.nextInt(map.getWidth());
+            int y = r.nextInt(map.getHeight());
             Point point = new Point(x, y);
             if (!map.checkEntity(point)){
                 return point;
