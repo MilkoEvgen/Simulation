@@ -18,6 +18,6 @@ public class Grass extends Entity {
 
     @Override
     public void printEntity() {
-        System.out.print("\uD83C\uDF3C");
+        System.out.print("\uD83C\uDF3C"+ " ");
     }
 }

@@ -12,6 +12,6 @@ public class Tree extends Entity{
 
     @Override
     public void printEntity() {
-        System.out.print("\uD83C\uDF33");
+        System.out.print("\uD83C\uDF33"+ " ");
     }
 }

@@ -19,7 +19,7 @@ public class Predator extends Creature {
 
     @Override
     public void printEntity() {
-        System.out.print("\uD83E\uDD96");
+        System.out.print("\uD83E\uDD96"+ " ");
     }
 
     @Override
@@ -28,7 +28,6 @@ public class Predator extends Creature {
     }
 
     protected void attack(Point targetPoint, int attackPower) {
-        System.out.println("Хищник " + point.x + " " + point.y + " атакует c силой "+ attackPower);
         Herbivore herbivore = (Herbivore) map.getEntity(targetPoint);
         hp = hp + attackPower;
         herbivore.takeDamage(attackPower);

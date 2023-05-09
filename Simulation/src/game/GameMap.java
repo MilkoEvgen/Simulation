@@ -11,12 +11,20 @@ import java.util.Set;
 public class GameMap {
     public int width;
     public int height;
-    public boolean isMapChanged = true;
+    private boolean isMapChanged = true;
     private final HashMap<Point, Entity> entities = new HashMap<>();
 
     public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    public boolean isMapChanged() {
+        return isMapChanged;
+    }
+
+    public void setMapChanged(boolean mapChanged) {
+        isMapChanged = mapChanged;
     }
 
     public int getMapSize(){

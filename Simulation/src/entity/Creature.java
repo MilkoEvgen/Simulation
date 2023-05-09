@@ -29,8 +29,7 @@ public abstract class Creature extends Entity {
         if (isAlive && points.size() > 0) {
             List<Point> closestPath = getClosestPath(points, map);
             if (closestPath.size() > 0) {
-                System.out.println("Ходит существо " + point.x + " " + point.y);
-                map.isMapChanged = true;
+                map.setMapChanged(true);
                 if (closestPath.size() == 1) {
                     attack(closestPath.get(0), attackPower);
                 } else {
@@ -38,7 +37,11 @@ public abstract class Creature extends Entity {
                         if (i < closestPath.size() - 1) {
                             map.moveEntity(closestPath.get(i), this);
                         } else {
-                            attack(closestPath.get(i), attackPower - i);
+                            int powerAttack;
+                            if ((attackPower - i) > 0){
+                                powerAttack = attackPower - i;
+                            } else powerAttack = 0;
+                            attack(closestPath.get(i), powerAttack);
                             break;
                         }
                     }

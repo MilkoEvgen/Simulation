@@ -16,7 +16,8 @@ public class MapConsoleRenderer {
                 if (map.checkEntity(new Point(j, i))) {
                     map.getEntity(new Point(j, i)).printEntity();
                 } else {
-                    System.out.print("\uD83D\uDFEB");
+                    System.out.print("\uD83D\uDFEB" + " ");
+
                 }
             }
             System.out.println();

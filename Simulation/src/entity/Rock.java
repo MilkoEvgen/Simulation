@@ -12,6 +12,6 @@ public class Rock extends Entity {
 
     @Override
     public void printEntity() {
-        System.out.print("\uD83D\uDDFB");
+        System.out.print("\uD83D\uDDFB"+ " ");
     }
 }

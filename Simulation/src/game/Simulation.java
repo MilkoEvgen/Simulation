@@ -19,12 +19,8 @@ public class Simulation {
     }
 
     public void startSimulation() {
-        initActions();
-        for (Action spawnAction : spawnActions) {
-            spawnAction.perform();
-        }
-        while (map.isMapChanged) {
-            map.isMapChanged = false;
+        while (map.isMapChanged()) {
+            map.setMapChanged(false);
             for (Action action : turnActions) {
                 action.perform();
             }
@@ -32,7 +28,18 @@ public class Simulation {
         System.out.println("Симуляция завершена!");
     }
 
-    private void initActions(){
+    public boolean makeOneMoveAllCreatures() {
+        map.setMapChanged(false);
+        for (Action action : turnActions) {
+            action.perform();
+        }
+        if (!map.isMapChanged()) {
+            System.out.println("Симуляция завершена!");
+        }
+        return map.isMapChanged();
+    }
+
+    public void initActions() {
         spawnActions.add(new GrassSpawnAction(map));
         spawnActions.add(new RockSpawnAction(map));
         spawnActions.add(new TreeSpawnAction(map));
@@ -40,6 +47,9 @@ public class Simulation {
         spawnActions.add(new HerbivoreSpawnAction(map));
         turnActions.add(new MoveCreaturesAction(map));
         turnActions.add(new GrassSpawnAction(map));
+        for (Action spawnAction : spawnActions) {
+            spawnAction.perform();
+        }
     }
 
 }

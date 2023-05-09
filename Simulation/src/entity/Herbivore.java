@@ -20,7 +20,7 @@ public class Herbivore extends Creature {
 
     @Override
     public void printEntity() {
-        System.out.print("\uD83D\uDC07");
+        System.out.print("\uD83D\uDC07"+ " ");
     }
 
     @Override
@@ -29,7 +29,6 @@ public class Herbivore extends Creature {
     }
 
     protected void attack(Point targetPoint, int attackPower) {
-        System.out.println("Травоядное " + point.x + " " + point.y + " атакует c силой "+ attackPower);
         Grass grass = (Grass) map.getEntity(targetPoint);
         hp = hp + attackPower;
         grass.takeDamage(attackPower);
