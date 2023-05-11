@@ -52,39 +52,6 @@ public abstract class Creature extends Entity {
 
     protected abstract void attack(Point targetPoint, int attackPower);
 
-//    private ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
-//        Queue<Point> pointQueue = new LinkedList<>();
-//        HashMap<Point, Point> previous = new HashMap<>();
-//        HashSet<Point> visited = new HashSet<>();
-//        ArrayList<Point> path = new ArrayList<>();
-//
-//        Queue<List<Point>> listQueue = new PriorityQueue<>();
-//
-//        pointQueue.add(point);
-//        visited.add(point);
-//
-//        while (!pointQueue.isEmpty()) {
-//            Point current = pointQueue.poll();
-//            if (points.contains(current)) {
-//                while (current != this.point) {
-//                    path.add(current);
-//                    current = previous.get(current);
-//                }
-//                Collections.reverse(path);
-//                return path;
-//            }
-//
-//            for (Point neighbor : getNeighbours(current, map, points)) {
-//                if (!visited.contains(neighbor)) {
-//                    visited.add(neighbor);
-//                    pointQueue.add(neighbor);
-//                    previous.put(neighbor, current);
-//                }
-//            }
-//        }
-//        return path;
-//    }
-
     private ArrayList<Point> getClosestPath(Set<Point> points, GameMap map) {
         Queue<ArrayList<Point>> listQueue = new LinkedList<>();
         HashSet<Point> visited = new HashSet<>();

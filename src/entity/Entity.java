@@ -15,6 +15,6 @@ public abstract class Entity {
         this.map = map;
     }
 
-    public abstract void printEntity();
+    public abstract String getSprite();
 
 }

@@ -14,8 +14,8 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void printEntity() {
-        System.out.print("\uD83E\uDD96"+ " ");
+    public String getSprite() {
+        return "\uD83E\uDD96";
     }
 
     @Override

@@ -17,7 +17,7 @@ public class Grass extends Entity {
     }
 
     @Override
-    public void printEntity() {
-        System.out.print("\uD83C\uDF3C"+ " ");
+    public String getSprite() {
+        return "\uD83C\uDF3C";
     }
 }

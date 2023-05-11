@@ -13,8 +13,9 @@ public class MapConsoleRenderer {
         System.out.println("\n\n\n");
         for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
-                if (map.checkEntity(new Point(j, i))) {
-                    map.getEntity(new Point(j, i)).printEntity();
+                Point point = new Point(j, i);
+                if (map.checkEntity(point)) {
+                    System.out.print(map.getEntity(point).getSprite() + " ");
                 } else {
                     System.out.print("\uD83D\uDFEB" + " ");
 

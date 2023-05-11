@@ -19,8 +19,8 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public void printEntity() {
-        System.out.print("\uD83D\uDC07"+ " ");
+    public String getSprite() {
+        return "\uD83D\uDC07";
     }
 
     @Override
