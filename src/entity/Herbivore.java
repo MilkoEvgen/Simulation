@@ -19,13 +19,13 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public String getSprite() {
-        return "\uD83D\uDC07";
+    protected Class<? extends Entity> getTargetType() {
+        return Grass.class;
     }
 
     @Override
-    public Set<Point> getTargetPoints(){
-        return map.getCreaturesByClass(Grass.class).keySet();
+    public String getSprite() {
+        return "\uD83D\uDC07";
     }
 
     protected void attack(Point targetPoint, int attackPower) {

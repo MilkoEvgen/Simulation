@@ -14,13 +14,13 @@ public class Predator extends Creature {
     }
 
     @Override
-    public String getSprite() {
-        return "\uD83E\uDD96";
+    protected Class<? extends Entity> getTargetType() {
+        return Herbivore.class;
     }
 
     @Override
-    public Set<Point> getTargetPoints(){
-        return map.getCreaturesByClass(Herbivore.class).keySet();
+    public String getSprite() {
+        return "\uD83E\uDD96";
     }
 
     protected void attack(Point targetPoint, int attackPower) {

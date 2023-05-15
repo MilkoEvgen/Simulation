@@ -23,7 +23,7 @@ public abstract class Creature extends Entity {
     }
 
     public void makeMove() {
-        Set<Point> points = this.getTargetPoints();
+        Set<Point> points = map.getCreaturesByClass(this.getTargetType()).keySet();
         if (isAlive && points.size() > 0) {
             List<Point> closestPath = getClosestPath(points, map);
             if (closestPath.size() > 0) {
@@ -48,7 +48,7 @@ public abstract class Creature extends Entity {
         }
     }
 
-    protected abstract Set<Point> getTargetPoints();
+    protected abstract Class<? extends Entity> getTargetType();
 
     protected abstract void attack(Point targetPoint, int attackPower);
 
