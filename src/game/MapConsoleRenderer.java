@@ -14,8 +14,8 @@ public class MapConsoleRenderer {
         for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
                 Point point = new Point(j, i);
-                if (map.checkEntity(point)) {
-                    System.out.print(map.getEntity(point).getSprite() + " ");
+                if (map.isPointHaveEntity(point)) {
+                    System.out.print(map.getEntityByPoint(point).getSprite() + " ");
                 } else {
                     System.out.print("\uD83D\uDFEB" + " ");
 

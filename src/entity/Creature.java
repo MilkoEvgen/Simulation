@@ -23,7 +23,7 @@ public abstract class Creature extends Entity {
     }
 
     public void makeMove() {
-        Set<Point> points = map.getCreaturesByClass(this.getTargetType()).keySet();
+        Set<Point> points = map.getEntitiesByClass(this.getTargetType()).keySet();
         if (isAlive && points.size() > 0) {
             List<Point> closestPath = getClosestPath(points, map);
             if (closestPath.size() > 0) {
@@ -82,7 +82,7 @@ public abstract class Creature extends Entity {
     }
 
     private List<Point> getNeighbours(Point point, GameMap map, Set<Point> points) {
-        Set<Point> obstacles = map.getCreaturesByClass(Entity.class).keySet().stream().
+        Set<Point> obstacles = map.getEntitiesByClass(Entity.class).keySet().stream().
                 filter(entity -> !(points.contains(entity))).collect(Collectors.toSet());
 
         List<Point> neighbours = new ArrayList<>();

@@ -7,7 +7,7 @@ import java.awt.*;
 
 public abstract class Entity {
 
-    GameMap map;
+    protected GameMap map;
     public Point point;
 
     public Entity(Point point, GameMap map) {

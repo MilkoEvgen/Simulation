@@ -41,7 +41,7 @@ public class GameMap {
         entities.put(point, entity);
     }
 
-    public Entity getEntity(Point point){
+    public Entity getEntityByPoint(Point point){
         return entities.get(point);
     }
 
@@ -55,11 +55,11 @@ public class GameMap {
         entities.remove(point);
     }
 
-    public boolean checkEntity(Point point){
+    public boolean isPointHaveEntity(Point point){
         return entities.containsKey(point);
     }
 
-    public <T extends Entity> HashMap<Point, T> getCreaturesByClass(Class<T> objectClass) {
+    public <T extends Entity> HashMap<Point, T> getEntitiesByClass(Class<T> objectClass) {
         HashMap<Point, T> entityHashMap = new HashMap<>();
         for (Map.Entry <Point, Entity> e : entities.entrySet()) {
             if (objectClass.isInstance(e.getValue())) {

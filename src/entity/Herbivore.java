@@ -1,13 +1,8 @@
 package entity;
 
-import entity.Creature;
 import game.GameMap;
-import game.Simulation;
 
 import java.awt.*;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public class Herbivore extends Creature {
 
@@ -29,7 +24,7 @@ public class Herbivore extends Creature {
     }
 
     protected void attack(Point targetPoint, int attackPower) {
-        Grass grass = (Grass) map.getEntity(targetPoint);
+        Grass grass = (Grass) map.getEntityByPoint(targetPoint);
         hp = hp + attackPower;
         grass.takeDamage(attackPower);
         if (grass.hp < 0) {

@@ -29,7 +29,7 @@ public abstract class SpawnAction<T extends Entity> extends Action {
             int x = r.nextInt(map.getWidth());
             int y = r.nextInt(map.getHeight());
             Point point = new Point(x, y);
-            if (!map.checkEntity(point)){
+            if (!map.isPointHaveEntity(point)){
                 return point;
             }
         }

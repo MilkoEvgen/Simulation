@@ -15,7 +15,7 @@ public class MoveCreaturesAction extends Action{
 
     @Override
     public void perform() {
-        for (Map.Entry<Point, Creature> entry : map.getCreaturesByClass(Creature.class).entrySet()){
+        for (Map.Entry<Point, Creature> entry : map.getEntitiesByClass(Creature.class).entrySet()){
             entry.getValue().makeMove();
         }
     }
