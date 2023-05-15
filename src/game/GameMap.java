@@ -36,10 +36,6 @@ public class GameMap {
         isMapChanged = mapChanged;
     }
 
-    public HashMap<Point, Entity> getEntitiesMap(){
-        return entities;
-    }
-
     public void setEntity(Point point, Entity entity) {
         entity.point = point;
         entities.put(point, entity);

@@ -12,7 +12,7 @@ public class GrassSpawnAction extends SpawnAction<Grass> {
     @Override
     public void perform() {
         int currentRate = 0;
-        HashMap<Point, Entity> entities = map.getEntitiesMap();
+        HashMap<Point, Entity> entities = map.getCreaturesByClass(Entity.class);
         for (Point point : entities.keySet()) {
             if (entities.get(point) instanceof Grass){
                 currentRate++;

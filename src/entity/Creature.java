@@ -82,7 +82,7 @@ public abstract class Creature extends Entity {
     }
 
     private List<Point> getNeighbours(Point point, GameMap map, Set<Point> points) {
-        Set<Point> obstacles = map.getEntitiesMap().keySet().stream().
+        Set<Point> obstacles = map.getCreaturesByClass(Entity.class).keySet().stream().
                 filter(entity -> !(points.contains(entity))).collect(Collectors.toSet());
 
         List<Point> neighbours = new ArrayList<>();
