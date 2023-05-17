@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class GrassSpawnAction extends SpawnAction<Grass> {
 
     @Override
-    public void perform() {
+    public boolean perform() {
         int currentRate = 0;
         HashMap<Point, Entity> entities = map.getEntitiesByClass(Entity.class);
         for (Point point : entities.keySet()) {
@@ -24,6 +24,7 @@ public class GrassSpawnAction extends SpawnAction<Grass> {
             map.setEntity(point, spawnEntity(point));
             currentRate++;
         }
+        return false;
     }
 
     public GrassSpawnAction(GameMap map) {

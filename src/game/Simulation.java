@@ -15,24 +15,29 @@ public class Simulation {
     }
 
     public void startSimulation() {
-        while (map.isMapChanged()) {
-            map.setMapChanged(false);
+        boolean isCreaturesMoved = true;
+        while (isCreaturesMoved) {
+            isCreaturesMoved = false;
             for (Action action : turnActions) {
-                action.perform();
+                if (action.perform()){
+                    isCreaturesMoved = true;
+                }
             }
         }
         System.out.println("Симуляция завершена!");
     }
 
     public boolean makeOneMoveAllCreatures() {
-        map.setMapChanged(false);
+        boolean isCreaturesMoved = false;
         for (Action action : turnActions) {
-            action.perform();
+            if (action.perform()){
+                isCreaturesMoved = true;
+            }
         }
-        if (!map.isMapChanged()) {
+        if (!isCreaturesMoved) {
             System.out.println("Симуляция завершена!");
         }
-        return map.isMapChanged();
+        return isCreaturesMoved;
     }
 
     public void initActions() {

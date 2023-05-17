@@ -14,13 +14,14 @@ public abstract class SpawnAction<T extends Entity> extends Action {
     }
 
     @Override
-    public void perform() {
+    public boolean perform() {
         int currentRate = 0;
         while (currentRate < rate){
             Point point = getEmptyRandomPoint();
             map.setEntity(point, spawnEntity(point));
             currentRate++;
         }
+        return false;
     }
 
     protected Point getEmptyRandomPoint() {

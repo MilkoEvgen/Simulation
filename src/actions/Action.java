@@ -9,5 +9,5 @@ public abstract class Action {
         this.map = map;
     }
 
-    public abstract void perform();
+    public abstract boolean perform();
 }

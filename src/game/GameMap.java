@@ -8,7 +8,6 @@ import java.util.*;
 public class GameMap {
     private final int width;
     private final int height;
-    private boolean isMapChanged = true;
     private final HashMap<Point, Entity> entities = new HashMap<>();
 
     public GameMap(int width, int height) {
@@ -26,14 +25,6 @@ public class GameMap {
 
     public int getMapSize(){
         return width* height;
-    }
-
-    public boolean isMapChanged() {
-        return isMapChanged;
-    }
-
-    public void setMapChanged(boolean mapChanged) {
-        isMapChanged = mapChanged;
     }
 
     public void setEntity(Point point, Entity entity) {

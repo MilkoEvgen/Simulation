@@ -14,9 +14,14 @@ public class MoveCreaturesAction extends Action{
     }
 
     @Override
-    public void perform() {
+    public boolean perform() {
+        boolean isCreatureMoved = false;
         for (Map.Entry<Point, Creature> entry : map.getEntitiesByClass(Creature.class).entrySet()){
-            entry.getValue().makeMove();
+            if (entry.getValue().makeMove()){
+                isCreatureMoved = true;
+            }
+
         }
+        return isCreatureMoved;
     }
 }

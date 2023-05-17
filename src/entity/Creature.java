@@ -22,12 +22,11 @@ public abstract class Creature extends Entity {
         return speed;
     }
 
-    public void makeMove() {
+    public boolean makeMove() {
         Set<Point> points = map.getEntitiesByClass(this.getTargetType()).keySet();
         if (isAlive && points.size() > 0) {
             List<Point> closestPath = getClosestPath(points, map);
             if (closestPath.size() > 0) {
-                map.setMapChanged(true);
                 if (closestPath.size() == 1) {
                     attack(closestPath.get(0), attackPower);
                 } else {
@@ -44,8 +43,10 @@ public abstract class Creature extends Entity {
                         }
                     }
                 }
+                return true;
             }
         }
+        return false;
     }
 
     protected abstract Class<? extends Entity> getTargetType();
